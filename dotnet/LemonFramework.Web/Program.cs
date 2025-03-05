@@ -1,3 +1,5 @@
+using Autofac;
+using Autofac.Extensions.DependencyInjection;
 using LemonFramework.Extension.DynamicWebApi;
 using LemonFramework.Extension.ServiceRegistered;
 
@@ -12,7 +14,12 @@ builder.Services.AddEndpointsApiExplorer();
 // builder.Services.AddSwaggerGen(options => {
 
 // });
-builder.Services.ServiceRegister(); // 服务注册
+// builder.Services.ServiceRegister(); // 服务注册
+
+builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory()); // Autofac容易替换
+builder.Host.ConfigureContainer<ContainerBuilder>(builder => {
+    builder.RegisterModule<AutofacModuleRegister>(); // 服务模块注册
+});
 
 
 var app = builder.Build();
