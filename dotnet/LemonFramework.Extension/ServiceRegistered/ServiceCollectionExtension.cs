@@ -8,6 +8,9 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace LemonFramework.Extension.ServiceRegistered
 {
+    /// <summary>
+    /// 废弃  2025.03.05
+    /// </summary>
     public static class ServiceCollectionExtension
     {
         public static IServiceCollection ServiceRegister(this IServiceCollection services)
