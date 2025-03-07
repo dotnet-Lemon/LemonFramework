@@ -1,16 +1,12 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
 using System.Runtime.Loader;
-using System.Threading.Tasks;
 using Autofac;
 using Autofac.Extras.DynamicProxy;
+using LemonFramework.Common.Helper;
 using LemonFramework.Domain.Common;
 using LemonFramework.Extension.AOP;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyModel;
-using Microsoft.VisualBasic;
 
 namespace LemonFramework.Extension.ServiceRegistered
 {
@@ -26,8 +22,11 @@ namespace LemonFramework.Extension.ServiceRegistered
             }
 
             var cacheType = new List<Type>();
-            builder.RegisterType<LogFliter>();
-            cacheType.Add(typeof(LogFliter));
+            if (Appsettings.app(new string[] {"AppSettings", "LogAOP", "Enabled"}).ObjToBool())
+            {
+                builder.RegisterType<LogFliter>();
+                cacheType.Add(typeof(LogFliter));
+            }
 
             builder.RegisterAssemblyTypes(assemblies.ToArray()).Where(o => o.IsAssignableTo<ControllerBase>() && !o.IsAbstract && !o.IsInterface).AsSelf().PropertiesAutowired();
 
