@@ -1,7 +1,10 @@
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
+using LemonFramework.Common.Helper;
+using LemonFramework.Core;
 using LemonFramework.Extension.DynamicWebApi;
 using LemonFramework.Extension.ServiceRegistered;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,7 +17,9 @@ builder.Services.AddEndpointsApiExplorer();
 // builder.Services.AddSwaggerGen(options => {
 
 // });
-
+builder.Services.AddDbContext<LemonFrameworkDBContext>(options => {
+    options.UseSqlServer(Appsettings.app(new string[] {"ConnectionStrings", "Default"}));
+});
 builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory()); // Autofac容易替换
 builder.Host.ConfigureContainer<ContainerBuilder>(builder => {
     builder.RegisterModule<AutofacModuleRegister>(); // 服务模块注册

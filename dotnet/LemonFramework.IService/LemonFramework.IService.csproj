@@ -2,6 +2,7 @@
   <ItemGroup>
     <ProjectReference Include="..\LemonFramework.Common\LemonFramework.Common.csproj" />
     <ProjectReference Include="..\LemonFramework.Domain\LemonFramework.Domain.csproj" />
+    <ProjectReference Include="..\LemonFramework.Core\LemonFramework.Core.csproj" />
   </ItemGroup>
   <PropertyGroup>
     <TargetFramework>net9.0</TargetFramework>
